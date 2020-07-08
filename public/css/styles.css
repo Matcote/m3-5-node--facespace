@@ -1,9 +1,20 @@
-@import 'settings/reset.css';
-@import 'settings/typography.css';
-@import 'settings/variables.css';
-@import 'components/header.css';
-@import 'components/homepage.css';
-@import 'components/signin-form.css';
-@import 'components/profile-page.css';
+@import "settings/reset.css";
+@import "settings/typography.css";
+@import "settings/variables.css";
+@import "components/header.css";
+@import "components/homepage.css";
+@import "components/signin-form.css";
+@import "components/profile-page.css";
 
 /* Place any custom CSS below. 😃 */
+.profile-page__button {
+  margin: 9px;
+  padding: 0 var(--page-horizontal-padding);
+  max-width: var(--max-content-width);
+  height: 50px;
+  background-color: var(--primary-color);
+  font-family: "Teko", sans-serif;
+  font-size: x-large;
+  color: white;
+  border-radius: 6px;
+}

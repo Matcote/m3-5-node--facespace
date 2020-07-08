@@ -12,7 +12,6 @@ const handleFourOhFour = (req, res) => {
   res.status(404).send("I couldn't find what you're looking for.");
 };
 const handleHomepage = (req, res) => {
-  console.log(currentUser);
   res
     .status(200)
     .render("pages/homepage", { users: users, currentUser: currentUser });
@@ -41,6 +40,32 @@ const handleName = (req, res) => {
   }
 };
 
+const changeFriends = (req, res) => {
+  if (req.body.option === "add") {
+    users[
+      users.findIndex((element) => element._id === req.params.id)
+    ].friends.push(currentUser._id);
+    currentUser.friends.push(req.params.id);
+    res.status(200).redirect(`../users/${req.params.id}`);
+  } else if (req.body.option === "remove") {
+    users[
+      users.findIndex((element) => element._id === req.params.id)
+    ].friends.splice(
+      users[
+        users.findIndex((element) => element._id === req.params.id)
+      ].friends.findIndex((element) => element === currentUser._id),
+      1
+    );
+    currentUser.friends.splice(
+      currentUser.friends.findIndex((element) => element._id === req.params.id),
+      1
+    );
+    console.log(users);
+    console.log(currentUser);
+    res.status(200).redirect(`../users/${req.params.id}`);
+  }
+};
+
 // -----------------------------------------------------
 // server endpoints
 express()
@@ -54,6 +79,7 @@ express()
   .get("/users/:id", handleProfilePage)
   .get("/signin", handleSignin)
   .post("/getname", handleName)
+  .post("/changefriend/:id", changeFriends)
   // a catchall endpoint that will send the 404 message.
   .get("*", handleFourOhFour)
 

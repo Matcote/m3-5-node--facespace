@@ -2,7 +2,16 @@
 <div class='profile-page--banner'></div>
 <div class="profile-page__user">
     <img src="<%= user.avatarUrl %>" class='profile-page__user--avatar'>
-    <h2 class='__user'><%= user.name %></h2>
+    <h2><%= user.name %></h2>
+    <% if(currentUser.name !== undefined && currentUser.name !== user.name && user.friends.includes(currentUser._id) === false){ %>
+        <form action="/changefriend/<%-user._id%>" method="post">
+            <button name ="option" value ='add' class='profile-page__button'>Add friend</button>
+        </form>
+    <% } else if(currentUser.name !== undefined && currentUser.name !== user.name && currentUser.friends.includes(user._id) === true){%>
+        <form action="/changefriend/<%-user._id%>" method="post">
+            <button name ="option" value ='remove' class='profile-page__button'>Remove friend</button>
+        </form>
+    <% } %>
 </div>
 <div class='profile-page__friends'>
     <h3><%= user.name %>'s Friends</h3>
