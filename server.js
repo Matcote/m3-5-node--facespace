@@ -12,25 +12,28 @@ const handleFourOhFour = (req, res) => {
   res.status(404).send("I couldn't find what you're looking for.");
 };
 const handleHomepage = (req, res) => {
-  res.status(200).render("pages/homepage", { users: users });
+  console.log(currentUser);
+  res
+    .status(200)
+    .render("pages/homepage", { users: users, currentUser: currentUser });
 };
 const handleProfilePage = (req, res) => {
   res.status(200).render("pages/profile", {
     user: users[req.params.id - 1006],
     users: users,
+    currentUser: currentUser,
   });
 };
 const handleSignin = (req, res) => {
-  res.status(200).render("pages/signin");
+  res.status(200).render("pages/signin", { currentUser: currentUser });
 };
 const handleName = (req, res) => {
   const firstName = req.body.firstName;
-  const user = users.find((element) => element.name === firstName);
-  console.log(user);
-  if (user === undefined) {
-    res.status(404).render("pages/signin");
+  currentUser = users.find((element) => element.name === firstName);
+  if (currentUser === undefined) {
+    res.status(404).render("pages/signin", { currentUser: currentUser });
   } else {
-    res.status(200).redirect(`users/${user._id}`);
+    res.status(200).redirect(`users/${currentUser._id}`);
   }
 };
 
