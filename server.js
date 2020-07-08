@@ -19,7 +19,7 @@ const handleHomepage = (req, res) => {
 };
 const handleProfilePage = (req, res) => {
   res.status(200).render("pages/profile", {
-    user: users[req.params.id - 1006],
+    user: users[users.findIndex((element) => element._id === req.params.id)],
     users: users,
     currentUser: currentUser,
   });

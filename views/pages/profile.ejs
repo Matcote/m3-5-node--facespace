@@ -9,8 +9,8 @@
     <ul class='profile-page__friends--list'>
         <% user.friends.forEach(friend => { %>
             <li class="friend">
-              <img src="<%= users[friend-1006].avatarUrl %>" />
-              <p><%= users[friend-1006].name %></p>
+              <img src="<%= users[users.findIndex((element) => element._id === friend)].avatarUrl %>" />
+              <p><%= users[users.findIndex((element) => element._id === friend)].name %></p>
             </li>
             <% }) %>
     </ul>
