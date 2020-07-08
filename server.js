@@ -25,7 +25,11 @@ const handleProfilePage = (req, res) => {
   });
 };
 const handleSignin = (req, res) => {
-  res.status(200).render("pages/signin", { currentUser: currentUser });
+  if (currentUser.name !== undefined) {
+    res.status(404).send(`you're already signed in you silly old goat`);
+  } else {
+    res.status(200).render("pages/signin", { currentUser: currentUser });
+  }
 };
 const handleName = (req, res) => {
   const firstName = req.body.firstName;
