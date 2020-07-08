@@ -15,13 +15,25 @@ const handleHomepage = (req, res) => {
   res.status(200).render("pages/homepage", { users: users });
 };
 const handleProfilePage = (req, res) => {
-  res
-    .status(200)
-    .render("pages/profile", {
-      user: users[req.params.id - 1006],
-      users: users,
-    });
+  res.status(200).render("pages/profile", {
+    user: users[req.params.id - 1006],
+    users: users,
+  });
 };
+const handleSignin = (req, res) => {
+  res.status(200).render("pages/signin");
+};
+const handleName = (req, res) => {
+  const firstName = req.body.firstName;
+  const user = users.find((element) => element.name === firstName);
+  console.log(user);
+  if (user === undefined) {
+    res.status(404).render("pages/signin");
+  } else {
+    res.status(200).redirect(`users/${user._id}`);
+  }
+};
+
 // -----------------------------------------------------
 // server endpoints
 express()
@@ -33,6 +45,8 @@ express()
   // endpoints
   .get("/", handleHomepage)
   .get("/users/:id", handleProfilePage)
+  .get("/signin", handleSignin)
+  .post("/getname", handleName)
   // a catchall endpoint that will send the 404 message.
   .get("*", handleFourOhFour)
 
