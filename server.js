@@ -32,8 +32,13 @@ const handleSignin = (req, res) => {
 };
 const handleName = (req, res) => {
   const firstName = req.body.firstName;
-  currentUser = users.find((element) => element.name === firstName);
-  if (currentUser === undefined) {
+  users.forEach((element) => {
+    if (element.name === firstName) {
+      currentUser = element;
+    }
+  });
+  console.log(currentUser);
+  if (currentUser.name === undefined) {
     res.status(404).render("pages/signin", { currentUser: currentUser });
   } else {
     res.status(200).redirect(`users/${currentUser._id}`);
@@ -60,8 +65,6 @@ const changeFriends = (req, res) => {
       currentUser.friends.findIndex((element) => element._id === req.params.id),
       1
     );
-    console.log(users);
-    console.log(currentUser);
     res.status(200).redirect(`../users/${req.params.id}`);
   }
 };
