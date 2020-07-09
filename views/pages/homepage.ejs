@@ -10,6 +10,15 @@
           <% } %>
         </li>
         <% }) %>
-      </ul>
+    </ul>
+    <%if(currentUser.name !== undefined){ %>
+    <form action="/addall" method="post">
+      <button class='profile-page__button'>I 😍 everyone</button>
+    </form>
+    <form action="/removeall" method="post">
+      <button class='profile-page__button'>I 😡 everyone</button>
+    </form>
+  <% } %>
 </div>
+
 <%- include(`../partials/footer`)%>

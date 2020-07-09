@@ -75,12 +75,21 @@ const addAll = (req, res) => {
       return;
     } else {
       currentUser.friends.push(element._id);
+      element.friends.push(currentUser._id);
     }
   });
   res.status(200).redirect(`/`);
 };
 const removeAll = (req, res) => {
-  currentUser.friends = {};
+  currentUser.friends = [];
+  users.forEach((element) => {
+    if (element.friends.includes(currentUser._id)) {
+      element.friends.splice(
+        element.friends.findIndex((element) => element === currentUser._id),
+        1
+      );
+    }
+  });
   res.status(200).redirect(`/`);
 };
 
@@ -98,6 +107,8 @@ express()
   .get("/signin", handleSignin)
   .post("/getname", handleName)
   .post("/changefriend/:id", changeFriends)
+  .post("/addall", addAll)
+  .post("/removeall", removeAll)
   // a catchall endpoint that will send the 404 message.
   .get("*", handleFourOhFour)
 
