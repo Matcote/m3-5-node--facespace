@@ -11,6 +11,7 @@
 }
 .profile-page__user--avatar {
   border: 8px solid var(--primary-color);
+  border-radius: 8px;
   margin-top: -50%;
   width: 100%;
 }

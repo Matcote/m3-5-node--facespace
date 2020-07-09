@@ -67,6 +67,21 @@ const changeFriends = (req, res) => {
     );
     res.status(200).redirect(`../users/${req.params.id}`);
   }
+  console.log(users);
+};
+const addAll = (req, res) => {
+  users.forEach((element) => {
+    if (element.friends.includes(currentUser._id)) {
+      return;
+    } else {
+      currentUser.friends.push(element._id);
+    }
+  });
+  res.status(200).redirect(`/`);
+};
+const removeAll = (req, res) => {
+  currentUser.friends = {};
+  res.status(200).redirect(`/`);
 };
 
 // -----------------------------------------------------
